@@ -24,6 +24,7 @@
             
             
             include("db_conn.php");
+            date_default_timezone_set("Africa/Lagos");
             error_reporting(E_ALL);
             if(isset($_REQUEST["submit"])){
                 $studentname = trim(addslashes($_REQUEST["student"]));
@@ -39,30 +40,16 @@
                 $exam1 = $_REQUEST["exam1"];
                 $total1 = $test1 + $test2 + $exam1;
 
-                if($total1 <= 0){
+                switch($total1 <= 0){
+                    case "":
                     $grade1 = "No Result!";
                     $remark1 = "No Result!";
-                }else if($total1 <=39){
-                    $grade1 = "F";
-                    $remark1 = "Very Poor!";
-                }else if($total1 >= 40 && $total1 <= 44){
-                    $grade1 = "E";
-                    $remark1 = "Poor!";
-                }else if($total1 >= 45 && $total1 <= 49){
-                    $grade1 = "D";
-                    $remark1 = "Average!";
-                }else if($total1 >= 50 && $total1 <= 59){
-                    $grade1 = "C";
-                    $remark1 = "Good!";
-                }else if($total1 >= 60 && $total1 <= 69){
-                    $grade1 = "B";
-                    $remark1 = "Very Good!";
-                }else if($total1 >= 70){
-                    $grade1 = "A";
-                    $remark1 = "Excellent!";
+                    break;
                 }
 
                 // END
+
+                
 
 
                 // SUBJECT 2
@@ -731,11 +718,11 @@
                     let hour = thisDay.getHours();
 
                     if(hour >= 0 && hour < 12){
-                        document.getElementById("greet").textContent = `Good Morning`;
+                        document.getElementById("greet").textContent = `Good Morning.`;
                     }else if(hour >= 12 && hour < 16){
-                        document.getElementById("greet").textContent = `Good Afternoon`;
+                        document.getElementById("greet").textContent = `Good Afternoon.`;
                     }else{
-                        document.getElementById("greet").textContent = `Good Evening`;
+                        document.getElementById("greet").textContent = `Good Evening.`;
                     }
                 }
 
@@ -781,10 +768,10 @@
                     
                     if(isset($_REQUEST["submit"])){
                    echo "<tr id= 'tr'>";
-                       echo "<td>" .($subject2). "</td>";
-                       echo "<td>" .($total1). "</td>";
-                       echo "<td>" .($grade1). "</td>";
-                       echo "<td>" .($remark1). "</td>";
+                       echo "<td>" .htmlspecialchars($subject2). "</td>";
+                       echo "<td>" .htmlspecialchars($total1). "</td>";
+                       echo "<td>" .htmlspecialchars($grade1). "</td>";
+                       echo "<td>" .htmlspecialchars($remark1). "</td>";
                    echo "</tr>";
 
                     echo "<tr>";
